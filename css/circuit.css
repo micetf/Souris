@@ -1,0 +1,86 @@
+body {
+	background-color:rgb(0,0,0);
+	color:white;
+	text-align:center;
+}
+#jsOK, #consignes, #getPseudo {
+	display:none;
+}
+
+#consignes, #getPseudo {
+	color:red;
+	font-weight:bold;
+}
+#consignes h1,#getPseudo > h1 {
+	color:white;
+	font-weight:bold;
+}
+
+#circuit {
+	width:800px;
+	height:600px;
+	margin:auto;
+	background:url(images/parcours.png);
+}
+#popup {
+	width:800px;
+	height:600px;
+	margin:auto;
+	background-color:white;
+	color:red;
+	display:none;
+	background:url(images/parcours.png);
+}
+#popup > h1 {
+	width:400px;
+	padding:20px;
+	margin:auto;
+	margin-top:200px;
+	background-color:orange;
+	border:5px ridge yellow;
+}
+#popup input {
+	font-size:2em;
+}
+
+#chrono {
+	border:3px ridge yellow;
+	background-color:white;
+	color:black;
+	width:200px;
+	margin:auto;
+	margin-top:10px;
+	font-size:2em;
+}
+#records p {
+	font-weight:bold;
+	margin:auto;	
+}
+#records {
+	border:3px ridge yellow;
+	background-color:white;
+	color:black;
+	width:300px;
+	margin:auto;	
+	margin-top:10px;
+}
+#records ol {
+	display:none;
+}
+#pseudo {
+	color:red;
+	font-weight:bold;
+	cursor:pointer;
+}
+a, #aide {
+	color:red;
+	font-weight:bold;
+	text-decoration:underline overline;
+	cursor:pointer;
+}
+body li {
+	text-align:left;
+}
+a.parcours {
+    color:yellow;
+}
