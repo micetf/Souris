@@ -53,6 +53,6 @@ $liste = '';
 $enregs = file($fichier);
 foreach ($enregs as $cle => $enreg) {
     $enreg = explode(',', trim($enreg));
-    $liste .= '<li>'.htmlspecialchars($enreg[0]).' : '.$enreg[1].'</li>';
+    $liste .= '<li>'.htmlspecialchars($enreg[0]).' : '.htmlspecialchars($enreg[1]).'</li>';
 }
 echo $liste;

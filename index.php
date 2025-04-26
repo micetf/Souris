@@ -1,7 +1,7 @@
 <?php
 $nbCircuits = 17;
-$noCircuit = (isset($_GET['c']) && in_array($_GET['c'], range(1, $nbCircuits))) ? $_GET['c'] : 1;
-$pseudo = (isset($_GET['p'])) ? $_GET['p'] : '';
+$noCircuit = (isset($_GET['c']) && in_array($_GET['c'], range(1, $nbCircuits))) ? (int)$_GET['c'] : 1;
+$pseudo = (isset($_GET['p'])) ? htmlspecialchars($_GET['p'], ENT_QUOTES, 'UTF-8') : '';
 $nomCircuit = 'parcours'.$noCircuit;
 $img = imagecreatefrompng('images/'.$nomCircuit.'.png');
 $bitmap = array();
@@ -130,7 +130,7 @@ Créé par
 
 
     <!-- scripts concatenated and minified via build script -->
-        <script type="text/javascript" src="../library/js/jquery-min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="../library/js/jquery-ui.min.js"></script>
         <script type="text/javascript" src="../library/js/jquery.ui.touch-punch.min.js"></script>
         <script type="text/javascript" src="../library/js/jquery-contact.min.js"></script>
