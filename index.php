@@ -3,6 +3,8 @@ $nbCircuits = 17;
 $noCircuit = (isset($_GET['c']) && in_array($_GET['c'], range(1, $nbCircuits))) ? (int)$_GET['c'] : 1;
 $pseudo = (isset($_GET['p'])) ? htmlspecialchars($_GET['p'], ENT_QUOTES, 'UTF-8') : '';
 $nomCircuit = 'parcours'.$noCircuit;
+$sessionToken = bin2hex(random_bytes(16));
+
 $img = imagecreatefrompng('images/'.$nomCircuit.'.png');
 $bitmap = array();
 foreach (range(0, imagesx($img) - 1) as $x) {
@@ -139,6 +141,7 @@ Créé par
         <script type="text/javascript">
         var parcours = '<?php echo $nomCircuit; ?>',
             pilote = '<?php echo $pseudo; ?>',
+            sessionToken = '<?php echo $sessionToken; ?>',
             zBitmap = new Array();
         <?php
         foreach ($bitmap as $x => $ys) {

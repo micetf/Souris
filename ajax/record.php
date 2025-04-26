@@ -18,6 +18,7 @@ $parcours = (isset($_POST['parcours'])) ? $_POST['parcours'] : exit();
 $pseudo = (isset($_POST['pseudo'])) ? $_POST['pseudo'] : 'Anonyme';
 $chrono = (isset($_POST['chrono']) && $_POST['chrono'] > 0) ? $_POST['chrono'] : 360000;
 $key = (isset($_POST['key'])) ? $_POST['key'] : '';
+$token = isset($_POST['token']) ? $_POST['token'] : '';
 $fichier = '../records/'.$parcours.'.txt';
 
 $newRecord = '';
@@ -28,7 +29,8 @@ $ajoute = false;
 if (!file_exists($fichier)) {
     file_put_contents($fichier, '');
 }
-if (md5("MiCetF".$chrono) === $key && $chrono != 360000) {
+$expectedKey = hash_hmac('sha256', "MiCetF".$chrono, $token);
+if ($expectedKey === $key && $chrono != 360000) {
     $enregs = file($fichier);
     foreach ($enregs as $cle => $enreg) {
         $infos = explode(',', $enreg);

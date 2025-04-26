@@ -113,7 +113,7 @@ $(document).ready(function () {
                     // Envoyer le résultat au serveur via AJAX
                     $.post(
                         "ajax/key.php",
-                        { chrono: chrono / 10 },
+                        { chrono: chrono / 10, token: sessionToken },
                         function (key) {
                             $.post(
                                 "ajax/record.php",
@@ -122,6 +122,7 @@ $(document).ready(function () {
                                     pseudo: pilote,
                                     chrono: chrono / 10,
                                     key: key,
+                                    token: sessionToken,
                                 },
                                 function (data) {
                                     if ($.trim(data) != "") {
