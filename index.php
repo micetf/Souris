@@ -131,7 +131,9 @@ Créé par
 
     <!-- scripts concatenated and minified via build script -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="../library/js/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+        crossorigin="anonymous"></script>
         <script type="text/javascript" src="../library/js/jquery.ui.touch-punch.min.js"></script>
         <script type="text/javascript" src="../library/js/jquery-contact.min.js"></script>
         <script type="text/javascript">
