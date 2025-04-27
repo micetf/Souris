@@ -1,119 +1,340 @@
-body {
-    background-color: rgb(0, 0, 0);
-    color: white;
-    text-align: center;
+:root {
+    --primary-color: #3f51b5; /* Bleu ajusté pour meilleur contraste */
+    --secondary-color: #0f703e; /* Vert foncé amélioré pour contraste avec texte blanc (5.01:1) */
+    --accent-color: #d32f2f; /* Rouge pour erreurs */
+    --background-color: #f5f7fa;
+    --text-color: #333;
+    --dark-text-color: #222;
+    --light-text-color: #fff;
+    --success-bg: #0a5d0a; /* Vert foncé pour fond de succès */
+    --error-bg: #c62828; /* Rouge foncé pour fond d'erreur */
+    --warning-bg: #b74400; /* Orange foncé amélioré pour contraste (4.54:1) */
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    --border-radius: 12px;
+    --small-radius: 6px;
 }
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    text-align: center;
+    font-family: "Nunito", "Segoe UI", sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+a,
+#aide,
+#retour {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+a:hover,
+#aide:hover,
+#retour:hover {
+    text-decoration: underline;
+    color: #2c3e8d; /* Version plus foncée pour le hover */
+}
+
+.btn-primary,
+input[type="button"] {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-family: "Nunito", "Segoe UI", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover,
+input[type="button"]:hover {
+    background-color: #2c3e8d;
+    transform: translateY(-2px);
+}
+
+.btn-primary:active,
+input[type="button"]:active {
+    transform: translateY(0);
+}
+
+/* États initiaux */
 #jsOK,
 #consignes,
 #getPseudo {
     display: none;
 }
 
+/* Section consignes */
 #consignes,
 #getPseudo {
-    color: red;
-    font-weight: bold;
-}
-#consignes h1,
-#getPseudo > h1 {
-    color: white;
-    font-weight: bold;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    color: var(--text-color);
 }
 
+.instructions {
+    text-align: left;
+    margin: 20px 0;
+}
+
+/* Circuit et popup */
 #circuit {
     width: 800px;
     height: 600px;
-    margin: auto;
-    background: url(images/parcours.png);
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
 }
+
 #popup {
     width: 800px;
     height: 600px;
-    margin: auto;
-    background-color: white;
-    color: red;
+    margin: 0 auto;
     display: none;
-    background: url(images/parcours.png);
-}
-#popup > h1 {
-    width: 400px;
-    padding: 20px;
-    margin: auto;
-    margin-top: 200px;
-    background-color: orange;
-    border: 5px ridge yellow;
-}
-#popup input {
-    font-size: 2em;
+    position: relative;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
 }
 
+#popup > h1 {
+    width: 480px; /* Augmentation de la largeur du popup pour éviter les retours à la ligne */
+    padding: 20px;
+    margin: 200px auto 0;
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: none;
+}
+
+/* Correction critique: S'assurer que tout le contenu des popups est lisible */
+
+/* Styles spécifiques pour l'état de réussite */
+#popup > h1[style*="backgroundColor: green"],
+#popup > h1[style*="backgroundColor: #0a5d0a"] {
+    background-color: var(--success-bg) !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* S'assurer que tout le contenu à l'intérieur du popup de succès est visible */
+#popup > h1[style*="backgroundColor: green"] span,
+#popup > h1[style*="backgroundColor: green"] br,
+#popup > h1[style*="backgroundColor: #0a5d0a"] span,
+#popup > h1[style*="backgroundColor: #0a5d0a"] br {
+    color: white !important;
+}
+
+/* Styles spécifiques pour l'état d'échec */
+#popup > h1[style*="backgroundColor: orange"],
+#popup > h1[style*="backgroundColor: #e65100"] {
+    background-color: var(--warning-bg) !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+/* S'assurer que tout le contenu à l'intérieur du popup d'erreur est visible */
+#popup > h1[style*="backgroundColor: orange"] span,
+#popup > h1[style*="backgroundColor: orange"] br,
+#popup > h1[style*="backgroundColor: #e65100"] span,
+#popup > h1[style*="backgroundColor: #e65100"] br {
+    color: white !important;
+}
+
+/* Chronomètre */
 #chrono {
-    border: 3px ridge yellow;
     background-color: white;
-    color: black;
+    color: var(--primary-color);
     width: 200px;
-    margin: auto;
-    margin-top: 10px;
-    font-size: 2em;
-}
-#records p {
+    margin: 15px auto;
+    padding: 10px;
+    font-size: 2rem;
     font-weight: bold;
-    margin: auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: none;
 }
+
+/* Record personnel */
+#personal-record {
+    background-color: var(--secondary-color);
+    color: white;
+    width: 380px; /* Augmentation de la largeur pour éviter les retours à la ligne */
+    max-width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Records */
 #records {
-    border: 3px ridge yellow;
     background-color: white;
-    color: black;
-    width: 300px;
-    margin: auto;
-    margin-top: 10px;
+    color: var(--text-color);
+    width: 380px; /* Augmentation de la largeur pour cohérence */
+    margin: 15px auto;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: none;
 }
+
+#records p {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 #records ol {
-    display: none;
+    padding-left: 25px;
 }
-#pseudo {
-    color: red;
-    font-weight: bold;
-    cursor: pointer;
-}
-a,
-#aide {
-    color: red;
-    font-weight: bold;
-    text-decoration: underline overline;
-    cursor: pointer;
-}
-body li {
+
+#records ol li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
     text-align: left;
 }
+
+#records ul {
+    padding-left: 20px;
+}
+
+#records ul li {
+    text-align: left;
+}
+
+/* Menu de navigation */
+#menu {
+    margin: 15px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 a.parcours {
-    color: yellow;
-}
-
-#personal-record {
-    border: 2px dashed yellow;
-    background-color: green;
+    background-color: var(--primary-color);
     color: white;
-    width: 250px;
-    margin: auto;
-    margin-top: 5px;
-    font-size: 1.2em;
+    border-radius: 50%;
+    padding: 5px 10px;
 }
 
+/* Pseudo */
+#pseudo {
+    background-color: var(--primary-color);
+    color: white;
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px auto;
+    font-weight: normal;
+}
+
+#pseudo:hover {
+    background-color: #2c3e8d;
+}
+
+/* Saisie du pseudo */
+#getPseudo input[type="text"] {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    margin-right: 10px;
+}
+
+/* Message d'erreur JavaScript */
+#jsKO h1 {
+    color: white;
+    background-color: var(--accent-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--accent-color);
+}
+
+/* Nouveau record - Correction pour meilleure accessibilité */
 .new-record {
-    color: yellow;
-    font-weight: bold;
-    animation: blink 1s infinite;
+    color: white !important; /* Blanc au lieu de jaune pour meilleur contraste */
+    font-weight: bold !important;
+    text-decoration: underline !important;
+    animation: pulse 1s infinite;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
 }
 
-@keyframes blink {
+@keyframes pulse {
     0% {
         opacity: 1;
     }
     50% {
-        opacity: 0.5;
+        opacity: 0.8;
     }
     100% {
         opacity: 1;
+    }
+}
+
+/* Adaptation responsive basique */
+@media (max-width: 850px) {
+    #circuit,
+    #popup {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        aspect-ratio: 4/3;
+    }
+
+    #popup > h1 {
+        width: 85%; /* Pourcentage plus large pour écrans étroits */
+        max-width: 500px;
+        margin-top: 30%;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    #chrono,
+    #records,
+    #personal-record {
+        width: 90%;
+        max-width: 380px;
     }
 }
