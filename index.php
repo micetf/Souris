@@ -89,6 +89,7 @@ foreach (range(0, imagesx($img) - 1) as $x) {
 <div id="popup"><br/><h1></h1><p><input type="button" value="Recommencer"/></p></div>
 <div id="circuit"></div>
 <p id="chrono">0</p>
+<p id="personal-record" style="display:none;"></p>
 <p id="menu">
 | <a id="aide">Aide</a> |
 <?php

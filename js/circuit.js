@@ -21,6 +21,41 @@ $(document).ready(function () {
     var oCompteur;
     var key = "";
 
+    // Structure pour stocker les records locaux
+    const localRecords = {
+        init: function () {
+            if (!localStorage.getItem("sourisRecords")) {
+                localStorage.setItem("sourisRecords", JSON.stringify({}));
+            }
+            return JSON.parse(localStorage.getItem("sourisRecords"));
+        },
+
+        saveRecord: function (parcours, chrono) {
+            let records = this.init();
+            if (!records[parcours] || records[parcours] > chrono) {
+                records[parcours] = chrono;
+                localStorage.setItem("sourisRecords", JSON.stringify(records));
+                return true; // Nouveau record personnel
+            }
+            return false; // Pas de nouveau record
+        },
+
+        getRecord: function (parcours) {
+            let records = this.init();
+            return records[parcours] || null;
+        },
+    };
+
+    // Afficher les records locaux au chargement
+    const personalBest = localRecords.getRecord(parcours);
+    if (personalBest) {
+        $("#personal-record")
+            .show()
+            .text("Ton record personnel : " + personalBest + " s");
+    } else {
+        $("#personal-record").hide();
+    }
+
     // Fonction de mise à jour du chronomètre
     function Compteur() {
         fin = new Date();
@@ -110,6 +145,22 @@ $(document).ready(function () {
                     chrono = fin.getTime() - debut.getTime();
                     start = false;
 
+                    // Vérifier et sauvegarder le record local
+                    const chronoSeconds = chrono / 1000;
+                    const isNewPersonalRecord = localRecords.saveRecord(
+                        parcours,
+                        chronoSeconds
+                    );
+
+                    // Mettre à jour l'affichage du record personnel
+                    if (isNewPersonalRecord) {
+                        $("#personal-record")
+                            .show()
+                            .text(
+                                "Ton record personnel : " + chronoSeconds + " s"
+                            );
+                    }
+
                     // Envoyer le résultat au serveur via AJAX
                     $.post(
                         "ajax/key.php",
@@ -149,7 +200,10 @@ $(document).ready(function () {
                         .html(
                             "Bravo !<br/>Tu as réussi en " +
                                 chrono / 1000 +
-                                " s"
+                                " s" +
+                                (isNewPersonalRecord
+                                    ? "<br/><span class='new-record'>Nouveau record personnel !</span>"
+                                    : "")
                         )
                         .css("backgroundColor", "green");
                 }
