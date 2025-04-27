@@ -19,7 +19,6 @@ $(document).ready(function () {
     var chrono = 0;
     var pos = [0, 0];
     var oCompteur;
-    var key = "";
 
     // Structure pour stocker les records locaux
     const localRecords = {
@@ -161,33 +160,23 @@ $(document).ready(function () {
                             );
                     }
 
-                    // Envoyer le résultat au serveur via AJAX
+                    // Envoyer le résultat au serveur via une seule requête AJAX
                     $.post(
-                        "ajax/key.php",
-                        { chrono: chrono / 10, token: sessionToken },
-                        function (key) {
-                            $.post(
-                                "ajax/record.php",
-                                {
-                                    parcours: parcours,
-                                    pseudo: pilote,
-                                    chrono: chrono / 10,
-                                    key: key,
-                                    token: sessionToken,
-                                },
-                                function (data) {
-                                    if ($.trim(data) != "") {
-                                        $("#records ol")
-                                            .show()
-                                            .empty()
-                                            .append(data);
-                                        $("#records ul").hide();
-                                    } else {
-                                        $("#records ol").hide();
-                                        $("#records ul").show();
-                                    }
-                                }
-                            );
+                        "ajax/record.php",
+                        {
+                            parcours: parcours,
+                            pseudo: pilote,
+                            chrono: chrono / 10,
+                            token: sessionToken,
+                        },
+                        function (data) {
+                            if ($.trim(data) != "") {
+                                $("#records ol").show().empty().append(data);
+                                $("#records ul").hide();
+                            } else {
+                                $("#records ol").hide();
+                                $("#records ul").show();
+                            }
                         }
                     );
 

@@ -17,14 +17,19 @@ if (!function_exists('file_put_contents')) {
 $parcours = (isset($_POST['parcours'])) ? $_POST['parcours'] : exit();
 $pseudo = (isset($_POST['pseudo'])) ? $_POST['pseudo'] : 'Anonyme';
 $chrono = (isset($_POST['chrono']) && $_POST['chrono'] > 0) ? $_POST['chrono'] : 360000;
-$key = (isset($_POST['key'])) ? $_POST['key'] : '';
 $token = isset($_POST['token']) ? $_POST['token'] : '';
 $fichier = '../records/'.$parcours.'.txt';
+
+// Modification: Générer la clé localement si elle n'est pas fournie
+if (!isset($_POST['key']) && isset($_POST['chrono']) && isset($_POST['token'])) {
+    $key = hash_hmac('sha256', "MiCetF".$chrono, $token);
+} else {
+    $key = (isset($_POST['key'])) ? $_POST['key'] : '';
+}
 
 $newRecord = '';
 $nRecord = 0;
 $ajoute = false;
-
 
 if (!file_exists($fichier)) {
     file_put_contents($fichier, '');
